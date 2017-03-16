@@ -97,5 +97,8 @@ def parse_file( fname, edges, transform, screen, color ):
                 display(screen)
             else:
                 save_extension(screen, args[0])
+        elif line == 'circle':
+        elif line == 'hermite':
+        elif line == 'bezier':
             
         c+= 1

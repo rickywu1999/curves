@@ -2,8 +2,14 @@ from display import *
 from matrix import *
 
 
+"http://algorithmist.net/docs/hermite.pdf"
+"http://www.idav.ucdavis.edu/education/CAGDNotes/Matrix-Cubic-Bezier-Curve.pdf"
 def add_circle( points, cx, cy, cz, r, step ):
-    pass
+    change = (2.0 * math.pi) / step
+    deg = 0
+    while i in range(step):
+        add_point( points, cx + (r * math.cos(deg)), cy + (r * math.sin(deg)), cz)
+        deg += change
 
 def add_curve( points, x0, y0, x1, y1, x2, y2, x3, y3, step, curve_type ):
     pass
