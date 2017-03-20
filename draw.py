@@ -12,9 +12,15 @@ def add_circle( points, cx, cy, cz, r, step ):
         deg += change
 
 def add_curve( points, x0, y0, x1, y1, x2, y2, x3, y3, step, curve_type ):
-    pass
-
-
+    mx = generate_curve_coef(x0,x1,x2,x3,curve_type)
+    my = generate_curve_coef(y0,y1,y2,y3,curve_type)
+    t = 0
+    while t <= 1:
+        mt = [[math.pow(t,3)],[math.pow(t,2)],[math.pow(t,1)],[1]]
+        newx = matrix_mult(mt,mx)
+        newy = matrix_mult(mt,my)
+        t += step
+        add_point(points,newx,newy,0)
 
 def draw_lines( matrix, screen, color ):
     if len(matrix) < 2:
