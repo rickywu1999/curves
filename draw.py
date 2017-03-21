@@ -7,13 +7,14 @@ from matrix import *
 def add_circle( points, cx, cy, cz, r, step ):
     change = (2.0 * math.pi) / step
     deg = 0
-    while i in range(step):
+    i = 0
+    for i in range(int(1/step)):
         add_point( points, cx + (r * math.cos(deg)), cy + (r * math.sin(deg)), cz)
         deg += change
 
 def add_curve( points, x0, y0, x1, y1, x2, y2, x3, y3, step, curve_type ):
-    mx = generate_curve_coef(x0,x1,x2,x3,curve_type)
-    my = generate_curve_coef(y0,y1,y2,y3,curve_type)
+    mx = generate_curve_coefs(x0,x1,x2,x3,curve_type)
+    my = generate_curve_coefs(y0,y1,y2,y3,curve_type)
     t = 0
     while t <= 1:
         mt = [[math.pow(t,3)],[math.pow(t,2)],[math.pow(t,1)],[1]]
