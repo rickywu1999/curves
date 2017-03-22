@@ -5,23 +5,29 @@ from matrix import *
 "http://algorithmist.net/docs/hermite.pdf"
 "http://www.idav.ucdavis.edu/education/CAGDNotes/Matrix-Cubic-Bezier-Curve.pdf"
 def add_circle( points, cx, cy, cz, r, step ):
-    change = (2.0 * math.pi) / step
-    deg = 0
-    i = 0
-    for i in range(int(1/step)):
-        add_point( points, cx + (r * math.cos(deg)), cy + (r * math.sin(deg)), cz)
-        deg += change
+    px = cx+r*math.cos(0)
+    py = cy+r*math.sin(0)
+    for t in range(1,int(1/step)+1):
+        theta = (t) * 2.0 * step * math.pi
+        x = cx+r*math.cos(theta)
+        y = cy+r*math.sin(theta)
+        add_edge(points, px, py, 0, x, y, 0)
+        px = x
+        py = y
 
 def add_curve( points, x0, y0, x1, y1, x2, y2, x3, y3, step, curve_type ):
-    mx = generate_curve_coefs(x0,x1,x2,x3,curve_type)
-    my = generate_curve_coefs(y0,y1,y2,y3,curve_type)
-    t = 0
-    while t <= 1:
-        mt = [[math.pow(t,3)],[math.pow(t,2)],[math.pow(t,1)],[1]]
-        newx = matrix_mult(mt,mx)
-        newy = matrix_mult(mt,my)
-        t += step
-        add_point(points,newx,newy,0)
+    xco = generate_curve_coefs( x0, x1, x2, x3, curve_type )
+    yco = generate_curve_coefs( y0, y1, y2, y3, curve_type )
+    t = step
+    px = xco[3]
+    py = yco[3]
+    for t in range(1,int(1/step)+1):
+        t *= step
+        x = xco[0]*(t**3)+xco[1]*(t**2)+xco[2]*(t)+xco[3]
+        y = yco[0]*(t**3)+yco[1]*(t**2)+yco[2]*(t)+yco[3]
+        add_edge(points, px, py, 0, x, y, 0)
+        px = x
+        py = y
 
 def draw_lines( matrix, screen, color ):
     if len(matrix) < 2:
